@@ -1,0 +1,18 @@
+location      = ""
+environment   = ""
+solution_name = ""
+
+private_dns_zone_resource_group_name = ""
+
+hub_vnet = {
+  hub_vnet_name                = ""
+  hub_vnet_resource_group_name = ""
+}
+
+peering = {
+  peer-vnets-to-hub            = true/false
+  allow_virtual_network_access = true/false
+  allow_forwarded_traffic      = true/false
+  allow_gateway_transit        = true/false
+  use_remote_gateways          = true/false
+}

@@ -1,13 +1,40 @@
-variable "subscription_id" {
-  description = "The Azure subscription ID in which the resources will be deployed."
-  type = string
-}
+variable "network" {
+  description = "Network settings."
+  type = object({
+    network = map(object({
+      address_space = set(string)
+      bgp_community = optional(string)
 
-variable "subscription_id_hub" {
-  description = "The Azure subscription ID in which hub network is located."
-  type = string
-}
+      ddos_protection_plan = optional(map(object({
+        id     = string
+        enable = bool
+      })))
 
+      dns_servers             = optional(set(string))
+      edge_zone               = optional(string)
+      flow_timeout_in_minutes = optional(number)
+
+      subnets = map(object({
+        address_prefixes = set(string)
+        subnet_delegation = optional(map(object({
+          service_delegation = object({
+            name    = string
+            actions = set(string)
+          })
+        })))
+        private_endpoint_network_policies_enabled     = optional(bool)
+        private_link_service_network_policies_enabled = optional(bool)
+        service_endpoints                             = optional(set(string))
+
+        route_table = optional(object({
+          disable_bgp_route_propagation = bool
+        }))
+      }))
+
+      link_these_private_dns_zones = optional(set(string))
+    }))
+  })
+}
 
 variable "solution_location" {
   description = "The Azure region in which the resources will be deployed."
@@ -17,6 +44,11 @@ variable "solution_location" {
 variable "solution_environment" {
   description = "The environment of the solution, e.g. dev, qas, prd."
   type        = string
+}
+
+variable "tags" {
+  description = "A mapping of tags."
+  type        = map(string)
 }
 
 variable "solution_name" {

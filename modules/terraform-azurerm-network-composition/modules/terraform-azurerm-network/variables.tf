@@ -3,7 +3,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "location" {
+variable "solution_location" {
   description = "The Azure region in which the resources will be deployed."
   type        = string
 }
@@ -14,7 +14,7 @@ variable "tags" {
 }
 
 variable "network" {
-  description = ""
+  description = "Network settings."
   type = object({
     name          = string
     address_space = set(string)
@@ -31,15 +31,22 @@ variable "network" {
 
     subnets = map(object({
       address_prefixes = set(string)
+
       subnet_delegation = optional(map(object({
         service_delegation = object({
           name    = string
           actions = set(string)
         })
       })))
+
       private_endpoint_network_policies_enabled     = optional(bool)
       private_link_service_network_policies_enabled = optional(bool)
       service_endpoints                             = optional(set(string))
+
+      route_table = optional(object({
+        disable_bgp_route_propagation = bool
+      }))
+
     }))
 
     link_these_private_dns_zones = optional(set(string))
@@ -52,7 +59,7 @@ variable "private_dns_zone_resource_group_name" {
   default     = null
 }
 
-variable "hub_vnet" {
+variable "hub_vnet_details" {
   description = "Infos about the hub vnet."
   type = object({
     hub_vnet_name                = string # "The name of the hub vnet."
@@ -60,7 +67,7 @@ variable "hub_vnet" {
   })
 }
 
-variable "peering" {
+variable "vnet_peering_to_hub" {
   description = "Peering options."
   type = object({
     peer-vnets-to-hub            = bool # "Should the spoke vnets be peered to the already existing hub vnet? (true/false)"
