@@ -13,7 +13,7 @@ module "network-composition" {
     azurerm.hub = azurerm.hub
   }
 
-  tags                 = local.tags
+  tags = local.tags
 
   # network configuration
   network = yamldecode(file("${path.root}/network-settings/network.yaml"))
@@ -25,7 +25,7 @@ module "network-composition" {
   network_security_groups = yamldecode(file("${path.root}/network-settings/network_security_groups.yaml"))
 
   # vnet peering to hub vnet
-  hub_details    = var.hub_details
+  hub_details         = var.hub_details
   vnet_peering_to_hub = var.vnet_peering_to_hub
 
   # details about the application/solution

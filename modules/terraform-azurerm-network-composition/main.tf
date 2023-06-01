@@ -69,7 +69,7 @@ module "network" {
   }
 
   # peering
-  hub_details    = var.hub_details
+  hub_details         = var.hub_details
   vnet_peering_to_hub = var.vnet_peering_to_hub
 }
 
@@ -298,5 +298,5 @@ resource "azurerm_network_security_rule" "this" {
   priority                                   = each.value.priority
   direction                                  = each.value.direction
 
-  depends_on = [ azurerm_network_security_group.this ]
+  depends_on = [azurerm_network_security_group.this]
 }

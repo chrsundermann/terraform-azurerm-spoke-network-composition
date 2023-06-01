@@ -111,9 +111,9 @@ variable "network_security_groups" {
 variable "solution_details" {
   description = "Basic infos about the application/solution for which the network components are deployed."
   type = object({
-    name          = string # The name of the application/solution.
-    environment                = string # "The environment of the solution, e.g. dev, qas, prd."
-    location = string # "The Azure region in which the resources will be deployed."
+    name        = string # The name of the application/solution.
+    environment = string # "The environment of the solution, e.g. dev, qas, prd."
+    location    = string # "The Azure region in which the resources will be deployed."
   })
 }
 
