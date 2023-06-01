@@ -1,0 +1,23 @@
+route_tables:
+
+  # route_table_2:
+  #   disable_bgp_route_propagation: true
+  #   subnet_associations:
+  #     - subnet2
+  #   routes:
+  #     route-to-internet:
+  #       address_prefix: 0.0.0.0/0
+  #       next_hop_type: Internet
+
+  route_table_1:
+    disable_bgp_route_propagation: true
+    subnet_associations:
+      - subnet1
+    routes:
+      # route-to-va:
+      #   address_prefix: 10.0.1.0/25
+      #   next_hop_type: VirtualAppliance
+      #   next_hop_in_ip_address: 10.0.0.10
+      route-to-internet:
+        address_prefix: 0.0.0.0/0
+        next_hop_type: Internet

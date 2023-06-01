@@ -1,7 +1,8 @@
 variable "network" {
   description = "Network settings."
   type = object({
-    network = map(object({
+   network = map(object({
+    #type = map(object({
       address_space = set(string)
       bgp_community = optional(string)
 
@@ -25,13 +26,24 @@ variable "network" {
         private_endpoint_network_policies_enabled     = optional(bool)
         private_link_service_network_policies_enabled = optional(bool)
         service_endpoints                             = optional(set(string))
-
-        route_table = optional(object({
-          disable_bgp_route_propagation = bool
-        }))
       }))
 
       link_these_private_dns_zones = optional(set(string))
+    }))
+  })
+}
+
+variable "route_tables" {
+  description = "Route table settings."
+  type = object({
+    route_tables = map(object({
+      disable_bgp_route_propagation = string
+      subnet_associations = optional(set(string))
+      routes = map(object({
+        address_prefix = string
+        next_hop_type = string
+        next_hop_in_ip_address = optional(string)
+      }))
     }))
   })
 }

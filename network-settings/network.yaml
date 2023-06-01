@@ -1,0 +1,14 @@
+network:
+  vnet1:
+    address_space:
+      - "10.0.1.0/24"
+    subnets:
+      subnet1:
+        address_prefixes:
+        - "10.0.1.0/26"
+      subnet2:
+        address_prefixes:
+        - "10.0.1.64/26"
+  #     subnet3:
+  #       address_prefixes:
+  #       - "10.0.1.128/26"

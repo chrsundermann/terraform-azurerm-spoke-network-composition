@@ -42,11 +42,6 @@ variable "network" {
       private_endpoint_network_policies_enabled     = optional(bool)
       private_link_service_network_policies_enabled = optional(bool)
       service_endpoints                             = optional(set(string))
-
-      route_table = optional(object({
-        disable_bgp_route_propagation = bool
-      }))
-
     }))
 
     link_these_private_dns_zones = optional(set(string))

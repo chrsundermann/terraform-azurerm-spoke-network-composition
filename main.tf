@@ -23,6 +23,9 @@ module "network-composition" {
   # private DNS zones location
   private_dns_zone_resource_group_name = var.private_dns_zone_resource_group_name
 
+  # route tables
+  route_tables = yamldecode(file("${path.root}/network-settings/route_tables.yaml"))
+
   # miscellaneous
   solution_name        = var.solution_name
   solution_environment = var.solution_environment

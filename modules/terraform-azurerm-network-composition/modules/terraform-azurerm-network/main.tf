@@ -102,37 +102,8 @@ resource "azurerm_private_dns_zone_virtual_network_link" "this" {
   provider = azurerm.hub
   for_each = var.network.link_these_private_dns_zones == null ? [] : var.network.link_these_private_dns_zones
 
-  name                  = "dns-link-to-${trimprefix(trimsuffix(azurerm_virtual_network.this.id, "/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.network.name}"), "/subscriptions/")}"
+  name                  = "dns-link-to-${var.network.name}"#${trimprefix(trimsuffix(azurerm_virtual_network.this.id, "/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.network.name}"), "/subscriptions/")}"
   resource_group_name   = var.private_dns_zone_resource_group_name
   private_dns_zone_name = each.value
   virtual_network_id    = azurerm_virtual_network.this.id
 }
-
-###############################
-# Route Tables
-###############################
-
-locals {
-  subnets = flatten([ var.network.subnets == null ? [] : [
-    for subnet, subnet_config in var.network.subnets : {
-      subnet_name = subnet
-      route_table = subnet_config.route_table
-    }
-  ]
-  ])
-}
-
-resource "azurerm_route_table" "route_tables" {
-  for_each = {for k, v in local.subnets : k => v if v.route_table != null && var.network.subnets != null }
-
-  name     = "rt-${each.value.subnet_name}-${var.network.name}"
-  resource_group_name = var.resource_group_name
-  location = var.solution_location
-  disable_bgp_route_propagation = each.value.route_table.disable_bgp_route_propagation
-}
-
-# # resource "azurerm_subnet_route_table_association" "this" {
-# #   for_each = local.net_subnets
-# #   subnet_id      = azurerm_subnet.this[each.value].id
-# #   route_table_id = azurerm_route_table.example.id
-# # }
