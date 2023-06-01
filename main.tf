@@ -16,13 +16,13 @@ module "network-composition" {
   tags = local.tags
 
   # network configuration
-  network = yamldecode(file("${path.root}/network-settings/network.yaml"))
+  network = yamldecode(file("${path.root}/module_settings/network.yaml"))
 
   # route tables
-  route_tables = yamldecode(file("${path.root}/network-settings/route_tables.yaml"))
+  route_tables = yamldecode(file("${path.root}/module_settings/route_tables.yaml"))
 
   # network security groups
-  network_security_groups = yamldecode(file("${path.root}/network-settings/network_security_groups.yaml"))
+  network_security_groups = yamldecode(file("${path.root}/module_settings/network_security_groups.yaml"))
 
   # vnet peering to hub vnet
   hub_details         = var.hub_details
