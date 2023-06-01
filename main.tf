@@ -1,7 +1,7 @@
 locals {
   tags = {
     managedby   = "terraform"
-    environment = var.solution_environment
+    environment = var.solution_details.environment
   }
 }
 
@@ -13,22 +13,21 @@ module "network-composition" {
     azurerm.hub = azurerm.hub
   }
 
+  tags                 = local.tags
+
   # network configuration
   network = yamldecode(file("${path.root}/network-settings/network.yaml"))
-
-  # vnet peering to hub vnet
-  hub_vnet_details = var.hub_vnet_details
-  vnet_peering_to_hub  = var.vnet_peering_to_hub
-
-  # private DNS zones location
-  private_dns_zone_resource_group_name = var.private_dns_zone_resource_group_name
 
   # route tables
   route_tables = yamldecode(file("${path.root}/network-settings/route_tables.yaml"))
 
-  # miscellaneous
-  solution_name        = var.solution_name
-  solution_environment = var.solution_environment
-  solution_location    = var.solution_location
-  tags                 = local.tags
+  # network security groups
+  network_security_groups = yamldecode(file("${path.root}/network-settings/network_security_groups.yaml"))
+
+  # vnet peering to hub vnet
+  hub_details    = var.hub_details
+  vnet_peering_to_hub = var.vnet_peering_to_hub
+
+  # details about the application/solution
+  solution_details = var.solution_details
 } 

@@ -48,14 +48,8 @@ variable "network" {
   })
 }
 
-variable "private_dns_zone_resource_group_name" {
-  description = "The resource group in which the private DNS zones are located."
-  type        = string
-  default     = null
-}
-
-variable "hub_vnet_details" {
-  description = "Infos about the hub vnet."
+variable "hub_details" {
+  description = "Details about the hub vnet."
   type = object({
     hub_vnet_name                = string # "The name of the hub vnet."
     hub_vnet_resource_group_name = string # "The name of the resource group in which the hub vnet is located."

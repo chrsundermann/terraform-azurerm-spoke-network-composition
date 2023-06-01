@@ -68,8 +68,8 @@ resource "azurerm_subnet" "this" {
 data "azurerm_virtual_network" "hub-network" {
   provider            = azurerm.hub
   count               = var.vnet_peering_to_hub.peer-vnets-to-hub ? 1 : 0
-  name                = var.hub_vnet_details.hub_vnet_name
-  resource_group_name = var.hub_vnet_details.hub_vnet_resource_group_name
+  name                = var.hub_details.hub_vnet_name
+  resource_group_name = var.hub_details.hub_vnet_resource_group_name
 }
 
 # Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_peering
@@ -103,7 +103,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "this" {
   for_each = var.network.link_these_private_dns_zones == null ? [] : var.network.link_these_private_dns_zones
 
   name                  = "dns-link-to-${var.network.name}"#${trimprefix(trimsuffix(azurerm_virtual_network.this.id, "/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${var.network.name}"), "/subscriptions/")}"
-  resource_group_name   = var.private_dns_zone_resource_group_name
+  resource_group_name   = var.hub_details.hub_vnet_resource_group_name
   private_dns_zone_name = each.value
   virtual_network_id    = azurerm_virtual_network.this.id
 }

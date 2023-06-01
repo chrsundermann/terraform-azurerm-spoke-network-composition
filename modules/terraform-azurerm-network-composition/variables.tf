@@ -1,8 +1,12 @@
+##################################
+# Vnets and Subnets
+##################################
+
 variable "network" {
   description = "Network settings."
   type = object({
-   network = map(object({
-    #type = map(object({
+    network = map(object({
+      #type = map(object({
       address_space = set(string)
       bgp_community = optional(string)
 
@@ -33,49 +37,6 @@ variable "network" {
   })
 }
 
-variable "route_tables" {
-  description = "Route table settings."
-  type = object({
-    route_tables = map(object({
-      disable_bgp_route_propagation = string
-      subnet_associations = optional(set(string))
-      routes = map(object({
-        address_prefix = string
-        next_hop_type = string
-        next_hop_in_ip_address = optional(string)
-      }))
-    }))
-  })
-}
-
-variable "solution_location" {
-  description = "The Azure region in which the resources will be deployed."
-  type        = string
-}
-
-variable "solution_environment" {
-  description = "The environment of the solution, e.g. dev, qas, prd."
-  type        = string
-}
-
-variable "tags" {
-  description = "A mapping of tags."
-  type        = map(string)
-}
-
-variable "solution_name" {
-  description = "The name of the solution."
-  type        = string
-}
-
-variable "hub_vnet_details" {
-  description = "Infos about the hub vnet."
-  type = object({
-    hub_vnet_name                = string # "The name of the hub vnet."
-    hub_vnet_resource_group_name = string # "The name of the resource group in which the hub vnet is located."
-  })
-}
-
 variable "vnet_peering_to_hub" {
   description = "Peering options."
   type = object({
@@ -87,8 +48,80 @@ variable "vnet_peering_to_hub" {
   })
 }
 
-variable "private_dns_zone_resource_group_name" {
-  description = "The resource group in which the private DNS zones are located."
-  type        = string
-  default     = null
+variable "hub_details" {
+  description = "Infos about the hub vnet."
+  type = object({
+    hub_vnet_name                = string # "The name of the hub vnet."
+    hub_vnet_resource_group_name = string # "The name of the resource group in which the hub vnet is located."
+  })
+}
+
+##################################
+# Route Tables
+##################################
+
+variable "route_tables" {
+  description = "Route table settings."
+  type = object({
+    route_tables = map(object({
+      disable_bgp_route_propagation = string
+      subnet_associations           = optional(set(string))
+      routes = map(object({
+        address_prefix         = string
+        next_hop_type          = string
+        next_hop_in_ip_address = optional(string)
+      }))
+    }))
+  })
+}
+
+##################################
+# Network Security Groups
+##################################
+
+variable "network_security_groups" {
+  description = "Network Security Groups settings."
+  type = object({
+    network_security_groups = map(object({
+      subnet_associations = optional(set(string))
+      security_rules = map(object({
+        protocol                                   = string
+        source_port_range                          = optional(string)
+        source_port_ranges                         = optional(set(string))
+        destination_port_range                     = optional(string)
+        destination_port_ranges                    = optional(set(string))
+        source_address_prefix                      = optional(string)
+        source_address_prefixes                    = optional(set(string))
+        source_application_security_group_ids      = optional(set(string))
+        destination_address_prefix                 = optional(string)
+        destination_address_prefixes               = optional(set(string))
+        destination_application_security_group_ids = optional(set(string))
+        access                                     = string
+        priority                                   = number
+        direction                                  = string
+      }))
+    }))
+  })
+}
+
+##################################
+# Solution/Application specific details
+##################################
+
+variable "solution_details" {
+  description = "Basic infos about the application/solution for which the network components are deployed."
+  type = object({
+    name          = string # The name of the application/solution.
+    environment                = string # "The environment of the solution, e.g. dev, qas, prd."
+    location = string # "The Azure region in which the resources will be deployed."
+  })
+}
+
+##################################
+# Miscellaneous
+##################################
+
+variable "tags" {
+  description = "A mapping of tags."
+  type        = map(string)
 }

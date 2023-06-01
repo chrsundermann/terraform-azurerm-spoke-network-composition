@@ -1,8 +1,8 @@
-location      = ""
-environment   = ""
-solution_name = ""
-
-private_dns_zone_resource_group_name = ""
+solution_details = {
+  name        = ""
+  environment = ""
+  location    = ""
+}
 
 hub_vnet = {
   hub_vnet_name                = ""
