@@ -10,7 +10,7 @@ hub_details = {
 }
 
 vnet_peering_to_hub = {
-  peer_vnets_to_hub            = false # Peer the spoke vnets to hub?
+  peer_vnets_to_hub            = true  # Peer the spoke vnets to hub?
   allow_virtual_network_access = true  # Controls if the VMs in the remote virtual network can access VMs in the local virtual network. Defaults to true.
   allow_forwarded_traffic      = false # Controls if forwarded traffic from VMs in the remote virtual network is allowed. Defaults to false.
   allow_gateway_transit        = false # Controls gatewayLinks can be used in the remote virtual network’s link to the local virtual network. Defaults to false.
