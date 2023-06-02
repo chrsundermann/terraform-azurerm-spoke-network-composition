@@ -38,7 +38,7 @@ terraform apply -var-file=settings/dev/terraform.tfvars
  - [yaml config files](examples/100/settings)
  - [test config files](test)
 
- Repo configuration example:
+ Module configuration example:
 
  ```hcl
  locals {
