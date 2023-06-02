@@ -1,0 +1,77 @@
+name: terraform
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+  TF_VAR_subscription_id_hub: ${{ secrets.SUBSCRIPTION_ID_HUB }}
+  TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
+  GIT_PAT: ${{ secrets.GIT_PAT }}
+  
+jobs:
+  run-terraform:
+    runs-on: ubuntu-latest
+    steps:
+
+      ##########################
+      # Preparing
+      ##########################
+      # https://github.tools.sap/ghcom-actions/actions-checkout
+      - name: Preparing - Github - checkout respository     
+        uses: actions/checkout@v3
+
+      # https://github.com/hashicorp/setup-terraform
+      - name: Preparing - Terraform - install CLI
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      # https://github.com/actions/setup-go
+      - name: Preparing - Go - install Go
+        uses: actions/setup-go@v3
+        #with:
+        #  go-version: '1.20.1'
+
+      - name: Preparing - Go - miscellaneous
+        working-directory: test
+        run: |
+          go env -w GOPATH=$HOME/go
+          go mod init "github.com/rigydi/${GITHUB_REPOSITORY#*/}"
+          go mod tidy
+      
+      # PAT token for downloading TF Modules from other own Git Repos
+      #- name: Preparing - Git - PAT for Terratest
+      #  run: |
+      #    git config --global url."https://${{ secrets.GIT_PAT }}@github.com".insteadOf https://github.com
+
+      - name: Preparing - Terraform Files - example-100
+        working-directory: test
+        run: |
+          cp -av ../examples/example/100/settings .
+
+      ##########################
+      # Static Code Analysis
+      ##########################
+ 
+      - name: Static Code Analysis - Terraform - format
+        run: terraform fmt
+ 
+      - name: Static Code Analysis - Terraform - init
+        run: terraform init -input=false
+ 
+      - name: Static Code Analysis - Terraform - validate
+        run: terraform validate -no-color
+      
+      ##########################
+      # Unit Test
+      ##########################
+
+      - name: Unit Test - Terratest - apply and destroy
+        working-directory: test
+        run: go test -v -timeout 30m
