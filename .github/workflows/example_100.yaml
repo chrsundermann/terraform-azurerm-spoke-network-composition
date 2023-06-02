@@ -10,8 +10,8 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
-  TF_VAR_subscription_id_hub: ${{ secrets.SUBSCRIPTION_ID_HUB }}
-  TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
+  TF_VAR_subscription_id_hub: ${{ secrets.TF_VAR_SUBSCRIPTION_ID_HUB }}
+  TF_VAR_subscription_id: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
   GIT_PAT: ${{ secrets.GIT_PAT }}
   SETTINGS_SOURCE_FOLDER: ../examples/100/settings
   SETTINGS_TARGET_FOLDER: ./settings
