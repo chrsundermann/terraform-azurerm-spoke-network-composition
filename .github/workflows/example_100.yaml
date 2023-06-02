@@ -6,13 +6,13 @@ on:
   workflow_dispatch:
 
 env:
-  ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
   TF_VAR_subscription_id_hub: ${{ secrets.TF_VAR_SUBSCRIPTION_ID_HUB }}
   TF_VAR_subscription_id: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
-  GIT_PAT: ${{ secrets.GIT_PAT }}
+  #GIT_PAT: ${{ secrets.GIT_PAT }}
   SETTINGS_SOURCE_FOLDER: ../examples/100/settings
   SETTINGS_TARGET_FOLDER: ./settings
   
