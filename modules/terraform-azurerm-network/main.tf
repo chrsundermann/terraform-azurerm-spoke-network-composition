@@ -7,7 +7,7 @@ resource "azurerm_virtual_network" "this" {
   name                = var.network.name
   resource_group_name = var.resource_group_name
   address_space       = var.network.address_space
-  location            = var.solution_location
+  location            = var.application_location
   bgp_community       = var.network.bgp_community
 
   dynamic "ddos_protection_plan" {
@@ -67,14 +67,14 @@ resource "azurerm_subnet" "this" {
 # Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/virtual_network
 data "azurerm_virtual_network" "hub-network" {
   provider            = azurerm.hub
-  count               = var.vnet_peering_to_hub.peer-vnets-to-hub ? 1 : 0
+  count               = var.vnet_peering_to_hub.peer_vnets_to_hub ? 1 : 0
   name                = var.hub_details.hub_vnet_name
   resource_group_name = var.hub_details.hub_vnet_resource_group_name
 }
 
 # Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_peering
 resource "azurerm_virtual_network_peering" "spoke_to_hub" {
-  count = var.vnet_peering_to_hub.peer-vnets-to-hub ? 1 : 0
+  count = var.vnet_peering_to_hub.peer_vnets_to_hub ? 1 : 0
 
   name                      = "vpeer-${azurerm_virtual_network.this.name}-to-${data.azurerm_virtual_network.hub-network[0].name}"
   virtual_network_name      = azurerm_virtual_network.this.name

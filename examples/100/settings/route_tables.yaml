@@ -1,10 +1,10 @@
 route_tables:
-  myroutetable: # (Required) The name of the route table. Changing this forces a new resource to be created.
+  routetable1: # (Required) The name of the route table. Changing this forces a new resource to be created.
     disable_bgp_route_propagation: true # (Optional) Boolean flag which controls propagation of routes learned by BGP on that route table. True means disable.
     subnet_associations: # Associates a Route Table with a Subnet within a Virtual Network. Use the subnet names listed in network.yaml
       - subnet1
     routes: # Manages routes within a Route Table.
-      myroute: # (Required) The name of the route. Changing this forces a new resource to be created.
+      route1: # (Required) The name of the route. Changing this forces a new resource to be created.
         address_prefix: 0.0.0.0/0 # (Required) The destination to which the route applies. Can be CIDR (such as 10.1.0.0/16) or Azure Service Tag (such as ApiManagement, AzureBackup or AzureMonitor) format.
         next_hop_type: Internet # (Required) The type of Azure hop the packet should be sent to. Possible values are VirtualNetworkGateway, VnetLocal, Internet, VirtualAppliance and None.
         # next_hop_in_ip_address: e.g. 10.0.0.10 # (Optional) Contains the IP address packets should be forwarded to. Next hop values are only allowed in routes where the next hop type is VirtualAppliance.

@@ -1,5 +1,5 @@
 network:
-  myvnet: # (Required) The name of the virtual network. Changing this forces a new resource to be created.
+  vnet1: # (Required) The name of the virtual network. Changing this forces a new resource to be created.
     address_space: # (Required) The address space that is used the virtual network. You can supply more than one address space.
       - 10.0.0.0/24
     # bgp_community:  # (Optional) The BGP community attribute in format <as-number>:<community-value>.
@@ -16,7 +16,7 @@ network:
     #   - e.g. myzone1.com
     #   - e.g. myzone2.com 
     subnets:
-      mysubnet: # (Required) The name of the subnet. Changing this forces a new resource to be created.
+      subnet1: # (Required) The name of the subnet. Changing this forces a new resource to be created.
         address_prefixes: # (Required) The address prefixes to use for the subnet.
         - 10.0.0.0/25
         # subnet_delegation: # (Optional) One or more delegation blocks as defined below.
