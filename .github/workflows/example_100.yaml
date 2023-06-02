@@ -62,13 +62,19 @@ jobs:
       ##########################
  
       - name: Static Code Analysis - Terraform - format
-        run: terraform fmt
+        working-directory: test
+        run: |
+          terraform fmt
  
       - name: Static Code Analysis - Terraform - init
-        run: terraform init -input=false
+        working-directory: test
+        run: |
+          terraform init -input=false
  
       - name: Static Code Analysis - Terraform - validate
-        run: terraform validate -no-color
+        working-directory: test
+        run: |
+          terraform validate -no-color
       
       ##########################
       # Unit Test
