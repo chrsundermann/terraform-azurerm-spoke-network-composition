@@ -13,6 +13,7 @@ env:
   TF_VAR_subscription_id_hub: ${{ secrets.SUBSCRIPTION_ID_HUB }}
   TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
   GIT_PAT: ${{ secrets.GIT_PAT }}
+  EXAMPLE_SOURCE_FOLDER: ../examples/100/settings
   
 jobs:
   run-terraform:
@@ -53,7 +54,7 @@ jobs:
       - name: Preparing - Terraform Files - example-100
         working-directory: test
         run: |
-          cp -av ../examples/example/100/settings .
+          cp -av $EXAMPLE_SOURCE_FOLDER .
 
       ##########################
       # Static Code Analysis
