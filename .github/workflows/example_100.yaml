@@ -13,7 +13,8 @@ env:
   TF_VAR_subscription_id_hub: ${{ secrets.SUBSCRIPTION_ID_HUB }}
   TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
   GIT_PAT: ${{ secrets.GIT_PAT }}
-  EXAMPLE_SOURCE_FOLDER: ../examples/100/settings
+  SETTINGS_SOURCE_FOLDER: ../examples/100/settings
+  SETTINGS_TARGET_FOLDER: settings
   
 jobs:
   run-terraform:
@@ -75,4 +76,4 @@ jobs:
 
       - name: Unit Test - Terratest - apply and destroy
         working-directory: test
-        run: go test -v -timeout 30m
+        run: go test -v -timeout 30m -var-file=$SETTINGS_TARGET_FOLDER/terraform.tfvars
