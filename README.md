@@ -23,6 +23,7 @@ export TF_VAR_subscription_id='<subscription_id_spoke>'
 export TF_VAR_subscription_id_hub='<subscription_id_hub>'
 ```
 
+Then execute commands in order:
 ```bash
 source env.secret
 
