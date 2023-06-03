@@ -32,7 +32,7 @@ In case you are curious on how the terraform-azurerm-spoke-network module is ref
 </br>
 
 ## Step 2
-Copy the folder [examples/100/settings](examples/100/settings) to your test folder. The folder contains yaml files containing configuration examples for network, route tables and network security groups.
+Copy the folder [examples/100/settings](examples/100/settings) to your test folder. The folder contains yaml files containing configuration examples for the complete spoke network architecture.
 
 </br>
 
