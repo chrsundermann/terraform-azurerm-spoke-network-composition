@@ -11,7 +11,7 @@ func TestExample1(t *testing.T) {
 	t.Parallel()
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../examples/100/",
+		TerraformDir: "./",
 		NoColor:      true,
 		EnvVars: map[string]string{
 			"ARM_CLIENT_ID":              os.Getenv("ARM_CLIENT_ID"),
