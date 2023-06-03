@@ -1,4 +1,4 @@
-![Workflow example_100](https://github.com/rigydi/terraform-azurerm-spoke-network-composition/actions/workflows/example_100.yaml/badge.svg?branch=main)
+[Workflow Example 100](https://github.com/rigydi/terraform-azurerm-spoke-network-composition/actions/workflows/example_100.yaml/badge.svg?branch=main)
 
 </br>
 
