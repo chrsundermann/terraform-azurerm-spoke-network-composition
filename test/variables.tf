@@ -30,9 +30,9 @@ variable "hub_details" {
 variable "vnet_peering_to_hub" {
   description = "Peering options."
   type = object({
-    peer_vnets_to_hub            = bool 
+    peer_vnets_to_hub            = bool
     allow_virtual_network_access = bool
-    allow_forwarded_traffic      = bool 
+    allow_forwarded_traffic      = bool
     allow_gateway_transit        = bool
     use_remote_gateways          = bool
   })
