@@ -20,9 +20,10 @@ network:
         subnet_delegation: # (Optional) One or more delegation blocks as defined below.
           delegation: # (Required) A name for this delegation.
             service_delegation:
-              name: e.g. Microsoft.AzureCosmosDB/clusters # (Required) The name of service to delegate to.
+              name: Microsoft.ContainerInstance/containerGroups # (Required) The name of service to delegate to.
               actions: # (Optional) A list of Actions which should be delegated. This list is specific to the service to delegate to.
-                - e.g. Microsoft.Network/publicIPAddresses/read
+                - Microsoft.Network/virtualNetworks/subnets/join/action
+                - Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action
         private_endpoint_network_policies_enabled: true # (Optional) Enable or Disable network policies for the private endpoint on the subnet. Setting this to true will Enable the policy and setting this to false will Disable the policy. Defaults to true.
         private_link_service_network_policies_enabled: true # (Optional) Enable or Disable network policies for the private link service on the subnet. Setting this to true will Enable the policy and setting this to false will Disable the policy. Defaults to true.
         service_endpoints: # (Optional) The list of Service endpoints to associate with the subnet.
