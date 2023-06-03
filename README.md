@@ -50,7 +50,7 @@ export TF_VAR_subscription_id='<subscription_id_spoke>'
 export TF_VAR_subscription_id_hub='<subscription_id_hub>'
 ```
 
-Optionally add **export ARM_ACCESS_KEY='<access_key>'** in case you configured a backend storage for storing the state file.
+Optionally add **export ARM_ACCESS_KEY='<access_key>'** in case you want to configure a backend storage for storing the state file.
 
 </br>
 
