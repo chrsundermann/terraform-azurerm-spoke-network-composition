@@ -56,6 +56,7 @@ jobs:
         working-directory: test
         run: |
           cp -av $SETTINGS_SOURCE_FOLDER .
+          mv $SETTINGS_SOURCE_FOLDER/terraform.tfvars .
 
       ##########################
       # Static Code Analysis
@@ -82,4 +83,4 @@ jobs:
 
       - name: Unit Test - Terratest - apply and destroy
         working-directory: test
-        run: go test -v -timeout 30m -var-file=$SETTINGS_TARGET_FOLDER/terraform.tfvars .
+        run: go test -v -timeout 30m
