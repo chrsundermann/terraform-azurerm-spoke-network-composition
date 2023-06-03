@@ -3,6 +3,9 @@ name: example_100
 on:
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+      - README.md
+      - 'configuration_templates/**'
   workflow_dispatch:
 
 env:
