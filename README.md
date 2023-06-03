@@ -2,19 +2,43 @@
 
 </br>
 
+# Welcome to the Project!
+
+Read [this](https://github.com/rigydi/terraform-azurerm-spoke-network-composition/issues/new/choose) for a quick introduction on how you can **contribute**.
+
+</br>
+
 # Content
 
-This repository provides a Terraform module which:
-1) creates a complete Azure spoke network infrastructure including vnets, subnets, route tables and routes, network security groups and rules
+This repository provides a **Terraform module** which:
+1) creates a complete **Azure spoke network infrastructure** including vnets, subnets, route tables and routes, network security groups and rules
 2) takes yaml files as input
 
-# Purpose
+</br>
 
-The purpose of this module is to make the network configuration as lean and simple as possible.
+# Goal
 
-# Usage
+The purpose of this module is to make a spoke network configuration as lean and simple as possible.
 
-Create env.secret file
+</br>
+
+# Quick Start
+## Step 1
+
+Copy the folder [test](test) to your machine.
+
+In case you are curious on how the terraform-azurerm-spoke-network module is referenced, have a look at the [main.tf](test/main.tf) file.
+
+</br>
+
+## Step 2
+Copy the folder [examples/100/settings](examples/100/settings) to your test folder. The folder contains yaml files containing configuration examples for network, route tables and network security groups.
+
+</br>
+
+## Step 3
+
+Create a file named **env.secret** with following content:
 
 ```bash
 #!/usr/bin/env bash
@@ -22,63 +46,23 @@ export ARM_CLIENT_ID="<client_id>"
 export ARM_SUBSCRIPTION_ID="<subscription_id>"
 export ARM_TENANT_ID="<tenant_id>"
 export ARM_CLIENT_SECRET='<client_secret>'
-export ARM_ACCESS_KEY='<access_key>'
 export TF_VAR_subscription_id='<subscription_id_spoke>'
 export TF_VAR_subscription_id_hub='<subscription_id_hub>'
 ```
 
-Then execute commands in order:
+Optionally add **export ARM_ACCESS_KEY='<access_key>'** in case you configured a backend storage for storing the state file.
+
+</br>
+
+Now sequentially execute the following commands inside of your test folder:
+
 ```bash
 source env.secret
 
 terraform fmt
 terraform init
 terraform validate
-terraform apply -var-file=settings/dev/terraform.tfvars
+terraform apply -var-file=settings/terraform.tfvars
 ```
 
-# Example
-
- - [yaml config files](examples/100/settings)
- - [test config files](test)
-
- Module configuration example:
-
- ```hcl
- locals {
-  tags = {
-    managedby   = "terraform"
-    application = var.application_details.name
-    environment = var.application_details.environment
-  }
-}
-
-module "network-composition" {
-  #source = "git::https://github.com/rigydi/terraform-azurerm-network-composition.git?ref=main"
-  source = "../"
-
-  providers = {
-    azurerm     = azurerm
-    azurerm.hub = azurerm.hub
-  }
-
-  tags = local.tags
-
-  # network configuration
-  network = yamldecode(file("${path.root}/settings/${var.application_details.environment}/network.yaml"))
-
-  # route tables
-  route_tables = yamldecode(file("${path.root}/settings/${var.application_details.environment}/route_tables.yaml"))
-
-  # network security groups
-  network_security_groups = yamldecode(file("${path.root}/settings/${var.application_details.environment}/network_security_groups.yaml"))
-
-  # vnet peering to hub vnet
-  hub_details         = var.hub_details
-  vnet_peering_to_hub = var.vnet_peering_to_hub
-
-  # details about the application/solution
-  application_details = var.application_details
-} 
- ```
 </br>
