@@ -17,4 +17,4 @@ To open a new issue click [here](https://github.com/rigydi/terraform-azurerm-spo
 
 ## Solve an Issue
 
-Scan through [existing issues](https://github.com/rigydi/terraform-azurerm-spoke-network-composition/issues) to find one that you are interested in. After that fork the repository and do your changes. When you are finished, create a PR. Fill out the PR template as instructed.
+Scan through [existing issues](https://github.com/rigydi/terraform-azurerm-spoke-network-composition/issues) to find one that you are interested in. Now fork the repository and do your changes. When you are finished, create a PR. Fill out the PR template as instructed.
