@@ -1,32 +1,40 @@
 network:
   vnet1: # (Required) The name of the virtual network. Changing this forces a new resource to be created.
     address_space: # (Required) The address space that is used the virtual network. You can supply more than one address space.
-      - 10.0.0.0/24
+      - 10.0.1.0/24
     # bgp_community:  # (Optional) The BGP community attribute in format <as-number>:<community-value>.
     # ddos_protection_plan: # (Optional) A ddos_protection_plan.
     #   settings:
     #     id:  # (Required) The ID of DDoS Protection Plan.
     #     enable: true/false # (Required) Enable/disable DDoS Protection Plan on Virtual Network.
-    # dns_servers: # (Optional) List of IP addresses of DNS servers.
-    #   - xxx.xxx.xxx.xxx
-    #   - xxx.xxx.xxx.xxx
+    dns_servers: # (Optional) List of IP addresses of DNS servers.
+      - 10.0.1.10/25
     # edge_zone: "" # (Optional) Specifies the Edge Zone within the Azure Region where this Virtual Network should exist. Changing this forces a new Virtual Network to be created.
-    # flow_timeout_in_minutes: # (Optional) The flow timeout in minutes for the Virtual Network, which is used to enable connection tracking for intra-VM flows. Possible values are between 4 and 30 minutes.
-    # link_these_private_dns_zones:
-    #   - e.g. myzone1.com
-    #   - e.g. myzone2.com 
+    flow_timeout_in_minutes: 30 # (Optional) The flow timeout in minutes for the Virtual Network, which is used to enable connection tracking for intra-VM flows. Possible values are between 4 and 30 minutes.
+    link_these_private_dns_zones:
+      - contoso.com
     subnets:
-      subnet1: # (Required) The name of the subnet. Changing this forces a new resource to be created.
+      subnet11: # (Required) The name of the subnet. Changing this forces a new resource to be created.
         address_prefixes: # (Required) The address prefixes to use for the subnet.
-        - 10.0.0.0/25
-        # subnet_delegation: # (Optional) One or more delegation blocks as defined below.
-        #   mydelegationname: # (Required) A name for this delegation.
-        #     service_delegation:
-        #       name: e.g. Microsoft.AzureCosmosDB/clusters # (Required) The name of service to delegate to.
-        #       actions: # (Optional) A list of Actions which should be delegated. This list is specific to the service to delegate to.
-        #         - e.g. Microsoft.Network/publicIPAddresses/read
-        # private_endpoint_network_policies_enabled: true # (Optional) Enable or Disable network policies for the private endpoint on the subnet. Setting this to true will Enable the policy and setting this to false will Disable the policy. Defaults to true.
-        # private_link_service_network_policies_enabled: true # (Optional) Enable or Disable network policies for the private link service on the subnet. Setting this to true will Enable the policy and setting this to false will Disable the policy. Defaults to true.
-        # service_endpoints: # (Optional) The list of Service endpoints to associate with the subnet.
-        #   - e.g. Microsoft.AzureActiveDirectory
-        #   - e.g. Microsoft.ContainerRegistry
+        - 10.0.1.0/26
+        subnet_delegation: # (Optional) One or more delegation blocks as defined below.
+          delegation: # (Required) A name for this delegation.
+            service_delegation:
+              name: e.g. Microsoft.AzureCosmosDB/clusters # (Required) The name of service to delegate to.
+              actions: # (Optional) A list of Actions which should be delegated. This list is specific to the service to delegate to.
+                - e.g. Microsoft.Network/publicIPAddresses/read
+        private_endpoint_network_policies_enabled: true # (Optional) Enable or Disable network policies for the private endpoint on the subnet. Setting this to true will Enable the policy and setting this to false will Disable the policy. Defaults to true.
+        private_link_service_network_policies_enabled: true # (Optional) Enable or Disable network policies for the private link service on the subnet. Setting this to true will Enable the policy and setting this to false will Disable the policy. Defaults to true.
+        service_endpoints: # (Optional) The list of Service endpoints to associate with the subnet.
+          - Microsoft.AzureActiveDirectory
+          - Microsoft.ContainerRegistry
+      subnet12: # (Required) The name of the subnet. Changing this forces a new resource to be created.
+        address_prefixes: # (Required) The address prefixes to use for the subnet.
+        - 10.0.1.64/26
+  vnet2: # (Required) The name of the virtual network. Changing this forces a new resource to be created.
+    address_space: # (Required) The address space that is used the virtual network. You can supply more than one address space.
+      - 10.0.2.0/24
+    subnets:
+      subnet21: # (Required) The name of the subnet. Changing this forces a new resource to be created.
+        address_prefixes: # (Required) The address prefixes to use for the subnet.
+        - 10.0.2.0/26
