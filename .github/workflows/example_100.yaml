@@ -82,4 +82,4 @@ jobs:
 
       - name: Unit Test - Terratest - apply and destroy
         working-directory: test
-        run: go test -v -timeout 30m -var-file=$SETTINGS_TARGET_FOLDER/terraform.tfvars
+        run: go test -v -timeout 30m -var-file=$SETTINGS_TARGET_FOLDER/terraform.tfvars .
