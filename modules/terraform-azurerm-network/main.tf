@@ -22,6 +22,10 @@ resource "azurerm_virtual_network" "this" {
   edge_zone               = var.network.edge_zone
   flow_timeout_in_minutes = var.network.flow_timeout_in_minutes
   tags                    = try(var.tags, null)
+
+  lifecycle {
+    ignore_changes = [ tags ]
+  }
 }
 
 ###############################
