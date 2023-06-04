@@ -19,4 +19,4 @@ jobs:
         id: create_release
         uses: release-drafter/release-drafter@v5
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_PIPELINE }}
+          GITHUB_TOKEN: ${{ secrets.GIT_PAT }}
