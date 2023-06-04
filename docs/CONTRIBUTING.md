@@ -4,8 +4,6 @@ Thank you for contributing!
 
 Read the [Code of Conduct](./CODE_OF_CONDUCT.md) to keep the community approachable and respectable.
 
-In this guide you will get an overview of the contribution workflow from opening an issue, creating a pull request (PR) and merging the PR.
-
 </br>
 
 # Issues
