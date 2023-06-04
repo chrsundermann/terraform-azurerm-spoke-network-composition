@@ -1,4 +1,4 @@
-name: example_100
+name: example
 
 on:
   pull_request:
@@ -16,7 +16,7 @@ env:
   TF_VAR_subscription_id_hub: ${{ secrets.TF_VAR_SUBSCRIPTION_ID_HUB }}
   TF_VAR_subscription_id: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
   GIT_PAT: ${{ secrets.GIT_PAT }}
-  SETTINGS_SOURCE_FOLDER: ../examples/100/settings
+  SETTINGS_SOURCE_FOLDER: ../example/settings
   SETTINGS_TARGET_FOLDER: ./settings
   
 jobs:
@@ -55,7 +55,7 @@ jobs:
         run: |
           git config --global url."https://${{ secrets.GIT_PAT }}@github.com".insteadOf https://github.com
 
-      - name: Preparing - Terraform Files - example-100
+      - name: Preparing - Terraform Files - example
         working-directory: test
         run: |
           cp -av $SETTINGS_SOURCE_FOLDER .
