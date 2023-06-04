@@ -32,7 +32,7 @@ In case you are curious on how the terraform-azurerm-spoke-network module is ref
 </br>
 
 ## Step 2
-Copy the folder [example/settings](example/settings) to your test folder. Inside you will find yaml files containing configuration examples used as input to [main.tf](test/main.tf).
+Copy the folder [settings](example/settings) to your test folder. Inside you will find yaml files containing configuration examples used as input to [main.tf](test/main.tf).
 
 </br>
 
