@@ -36,6 +36,12 @@ resource "azurerm_resource_group" "this" {
   name     = "rg-network-${var.application_details.name}-${var.application_details.environment}"
   location = var.application_details.location
   tags     = try(var.tags, null)
+
+  # tags are typically provided by policies on Subscriptions or ResourceGroups and will be overwritten by
+  # DeployIfNotExists policies this results in conflicts to each other
+  lifecycle {
+    ignore_changes = [ tags ]
+  }
 }
 
 module "network" {
@@ -94,6 +100,10 @@ resource "azurerm_route_table" "this" {
   tags                          = try(var.tags, null)
 
   depends_on = [azurerm_resource_group.this]
+
+  lifecycle {
+    ignore_changes = [ tags ]
+  }
 }
 
 
@@ -197,6 +207,10 @@ resource "azurerm_network_security_group" "this" {
   resource_group_name = azurerm_resource_group.this.name
 
   tags = try(var.tags, null)
+
+  lifecycle {
+    ignore_changes = [ tags ]
+  }
 }
 
 # data structure for network security group association
