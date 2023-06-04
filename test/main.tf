@@ -7,8 +7,7 @@ locals {
 }
 
 module "network-composition" {
-  #source = "git::https://github.com/rigydi/terraform-azurerm-network-composition.git?ref=main"
-  source = "../"
+  source = "git::https://github.com/rigydi/terraform-azurerm-network-composition.git?ref=main"
 
   providers = {
     azurerm     = azurerm
