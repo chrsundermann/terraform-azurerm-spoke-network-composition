@@ -25,14 +25,14 @@ The purpose of this module is to make a spoke network configuration as lean and 
 # Quick Start
 ## Step 1
 
-Copy the folder [test](test) to your machine.
+Copy the [test](test) folder to your machine.
 
 In case you are curious on how the terraform-azurerm-spoke-network module is referenced, have a look at the [main.tf](test/main.tf) file.
 
 </br>
 
 ## Step 2
-Copy the folder [settings](example/settings) to your test folder. Inside you will find yaml files containing configuration examples used as input to [main.tf](test/main.tf).
+Copy the [settings](example/settings) folder to your test folder. Inside you will find yaml files containing configuration examples used as input to [main.tf](test/main.tf).
 
 </br>
 
