@@ -4,7 +4,7 @@
 
 # Welcome to the Project!
 
-Read [this](https://github.com/rigydi/terraform-azurerm-spoke-network-composition/issues/new/choose) for a quick introduction on how to **contribute**.
+Read [this](docs/CONTRIBUTING.md) for a quick introduction on how to **contribute**.
 
 </br>
 
