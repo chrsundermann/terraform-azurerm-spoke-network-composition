@@ -31,4 +31,7 @@ module "network-composition" {
 
   # details about the application/solution
   application_details = var.application_details
+
+  # Please delete the depends_on entry for production scenarios. This field is just for this test case to make sure a hub vnet is existing to peer the spoke vnets with.
+  depends_on = [ azurerm_private_dns_zone.hub ]
 } 
