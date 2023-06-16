@@ -5,8 +5,7 @@ application_details = {
 }
 
 hub_details = {
-  hub_vnet_name                = "vnet-hub" # The name of the hub vnet.
-  hub_vnet_resource_group_name = "rg-hub"   # The resource group name in which the hub vnet is deployed.
+  hub_vnet_id                = "/subscriptions/ef031d65-6311-4db1-b3e0-5f0a84ad2239/resourceGroups/rg-core-network-prod-we/providers/Microsoft.Network/virtualNetworks/vnet-core-hub-prod-we" # The resource_id of the hub vnet.
 }
 
 vnet_peering_to_hub = {

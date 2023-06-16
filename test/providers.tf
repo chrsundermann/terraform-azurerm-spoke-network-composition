@@ -12,6 +12,6 @@ provider "azurerm" {
 
 provider "azurerm" {
   alias           = "hub"
-  subscription_id = var.subscription_id_hub
+  subscription_id = element(split("/", "${var.hub_details.hub_vnet_id}"), 1) # vnet-hub-subscriptionId
   features {}
 }

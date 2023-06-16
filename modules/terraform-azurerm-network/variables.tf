@@ -51,8 +51,7 @@ variable "network" {
 variable "hub_details" {
   description = "Details about the hub vnet."
   type = object({
-    hub_vnet_name                = string
-    hub_vnet_resource_group_name = string
+    hub_vnet_id                = string
   })
 }
 

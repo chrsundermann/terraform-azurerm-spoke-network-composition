@@ -50,8 +50,7 @@ variable "vnet_peering_to_hub" {
 variable "hub_details" {
   description = "Infos about the hub vnet."
   type = object({
-    hub_vnet_name                = string
-    hub_vnet_resource_group_name = string
+    hub_vnet_id = string
   })
 }
 

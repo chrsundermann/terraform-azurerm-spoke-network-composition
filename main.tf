@@ -40,7 +40,7 @@ resource "azurerm_resource_group" "this" {
   # tags are typically provided by policies on Subscriptions or ResourceGroups and will be overwritten by
   # DeployIfNotExists policies this results in conflicts to each other
   lifecycle {
-    ignore_changes = [ tags ]
+    ignore_changes = [tags]
   }
 }
 
@@ -102,7 +102,7 @@ resource "azurerm_route_table" "this" {
   depends_on = [azurerm_resource_group.this]
 
   lifecycle {
-    ignore_changes = [ tags ]
+    ignore_changes = [tags]
   }
 }
 
@@ -209,7 +209,7 @@ resource "azurerm_network_security_group" "this" {
   tags = try(var.tags, null)
 
   lifecycle {
-    ignore_changes = [ tags ]
+    ignore_changes = [tags]
   }
 }
 

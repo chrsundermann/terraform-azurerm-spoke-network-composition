@@ -68,21 +68,13 @@ resource "azurerm_subnet" "this" {
 # Peering
 ###############################
 
-# Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/virtual_network
-data "azurerm_virtual_network" "hub-network" {
-  provider            = azurerm.hub
-  count               = var.vnet_peering_to_hub.peer_vnets_to_hub ? 1 : 0
-  name                = var.hub_details.hub_vnet_name
-  resource_group_name = var.hub_details.hub_vnet_resource_group_name
-}
-
 # Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_peering
 resource "azurerm_virtual_network_peering" "spoke_to_hub" {
   count = var.vnet_peering_to_hub.peer_vnets_to_hub ? 1 : 0
 
-  name                      = "vpeer-${azurerm_virtual_network.this.name}-to-${data.azurerm_virtual_network.hub-network[0].name}"
+  name                      = "vpeer-${azurerm_virtual_network.this.name}-to-${element(split("/", "${var.hub_details.hub_vnet_id}"), 7)}"
   virtual_network_name      = azurerm_virtual_network.this.name
-  remote_virtual_network_id = data.azurerm_virtual_network.hub-network[0].id
+  remote_virtual_network_id = var.hub_details.hub_vnet_id
   resource_group_name       = var.resource_group_name
 
   allow_virtual_network_access = var.vnet_peering_to_hub.allow_virtual_network_access
@@ -92,8 +84,7 @@ resource "azurerm_virtual_network_peering" "spoke_to_hub" {
 
   depends_on = [
     azurerm_virtual_network.this,
-    azurerm_subnet.this,
-    data.azurerm_virtual_network.hub-network
+    azurerm_subnet.this
   ]
 }
 
@@ -107,7 +98,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "this" {
   for_each = var.network.link_these_private_dns_zones == null ? [] : var.network.link_these_private_dns_zones
 
   name                  = "dns-link-to-${var.network.name}"
-  resource_group_name   = var.hub_details.hub_vnet_resource_group_name
+  resource_group_name   = element(split("/", "${var.hub_details.hub_vnet_id}"), 3)
   private_dns_zone_name = each.value
   virtual_network_id    = azurerm_virtual_network.this.id
 }
