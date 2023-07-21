@@ -70,25 +70,48 @@ resource "azurerm_subnet" "this" {
 
 # Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/virtual_network
 data "azurerm_virtual_network" "hub-network" {
-  provider            = azurerm.hub
-  count               = var.vnet_peering_to_hub.peer_vnets_to_hub ? 1 : 0
+  provider = azurerm.hub
+  count    = var.vnet_peering_spoke_to_hub.peer_spoke_to_hub ? 1 : 0
+
   name                = var.hub_details.hub_vnet_name
   resource_group_name = var.hub_details.hub_vnet_resource_group_name
 }
 
 # Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_peering
 resource "azurerm_virtual_network_peering" "spoke_to_hub" {
-  count = var.vnet_peering_to_hub.peer_vnets_to_hub ? 1 : 0
+  count = var.vnet_peering_spoke_to_hub.peer_spoke_to_hub ? 1 : 0
 
   name                      = "vpeer-${azurerm_virtual_network.this.name}-to-${data.azurerm_virtual_network.hub-network[0].name}"
   virtual_network_name      = azurerm_virtual_network.this.name
   remote_virtual_network_id = data.azurerm_virtual_network.hub-network[0].id
   resource_group_name       = var.resource_group_name
 
-  allow_virtual_network_access = var.vnet_peering_to_hub.allow_virtual_network_access
-  allow_forwarded_traffic      = var.vnet_peering_to_hub.allow_forwarded_traffic
-  allow_gateway_transit        = var.vnet_peering_to_hub.allow_gateway_transit
-  use_remote_gateways          = var.vnet_peering_to_hub.use_remote_gateways
+  allow_virtual_network_access = var.vnet_peering_spoke_to_hub.allow_virtual_network_access
+  allow_forwarded_traffic      = var.vnet_peering_spoke_to_hub.allow_forwarded_traffic
+  allow_gateway_transit        = var.vnet_peering_spoke_to_hub.allow_gateway_transit
+  use_remote_gateways          = var.vnet_peering_spoke_to_hub.use_remote_gateways
+
+  depends_on = [
+    azurerm_virtual_network.this,
+    azurerm_subnet.this,
+    data.azurerm_virtual_network.hub-network
+  ]
+}
+
+# Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_peering
+resource "azurerm_virtual_network_peering" "hub_to_spoke" {
+  provider = azurerm.hub
+  count    = var.vnet_peering_hub_to_spoke.peer_hub_to_spoke ? 1 : 0
+
+  name                      = "vpeer-${data.azurerm_virtual_network.hub-network[0].name}-to-${azurerm_virtual_network.this.name}"
+  virtual_network_name      = data.azurerm_virtual_network.hub-network[0].name
+  remote_virtual_network_id = azurerm_virtual_network.this.id
+  resource_group_name       = var.hub_details.hub_vnet_resource_group_name
+
+  allow_virtual_network_access = var.vnet_peering_hub_to_spoke.allow_virtual_network_access
+  allow_forwarded_traffic      = var.vnet_peering_hub_to_spoke.allow_forwarded_traffic
+  allow_gateway_transit        = var.vnet_peering_hub_to_spoke.allow_gateway_transit
+  use_remote_gateways          = var.vnet_peering_hub_to_spoke.use_remote_gateways
 
   depends_on = [
     azurerm_virtual_network.this,

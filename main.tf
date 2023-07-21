@@ -75,8 +75,9 @@ module "network" {
   }
 
   # peering
-  hub_details         = var.hub_details
-  vnet_peering_to_hub = var.vnet_peering_to_hub
+  hub_details               = var.hub_details
+  vnet_peering_hub_to_spoke = var.vnet_peering_hub_to_spoke
+  vnet_peering_spoke_to_hub = var.vnet_peering_spoke_to_hub
 }
 
 
