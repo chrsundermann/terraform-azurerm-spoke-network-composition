@@ -58,10 +58,11 @@ variable "vnet_peering_hub_to_spoke" {
 }
 
 variable "hub_details" {
-  description = "Infos about the hub vnet."
+  description = "Infos about the hub."
   type = object({
     hub_vnet_name                = string
     hub_vnet_resource_group_name = string
+    hub_dns_resource_group_name  = string
   })
 }
 

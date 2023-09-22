@@ -130,7 +130,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "this" {
   for_each = var.network.link_these_private_dns_zones == null ? [] : var.network.link_these_private_dns_zones
 
   name                  = "dns-link-to-${var.network.name}"
-  resource_group_name   = var.hub_details.hub_vnet_resource_group_name
+  resource_group_name   = var.hub_details.hub_dns_resource_group_name
   private_dns_zone_name = each.value
   registration_enabled  = try(var.network.dns_registration_enabled, false)
   virtual_network_id    = azurerm_virtual_network.this.id

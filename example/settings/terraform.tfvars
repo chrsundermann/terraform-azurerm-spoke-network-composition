@@ -7,6 +7,7 @@ application_details = {
 hub_details = {
   hub_vnet_name                = "vnet-hub" # The name of the hub vnet.
   hub_vnet_resource_group_name = "rg-hub"   # The resource group name in which the hub vnet is deployed.
+  hub_dns_resource_group_name  = "rg-hub"   # The resource group name in which the hub dns is deployed.
 }
 
 vnet_peering_hub_to_spoke = {
