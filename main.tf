@@ -26,6 +26,7 @@ locals {
 
         # private DNS zone links
         link_these_private_dns_zones = value.link_these_private_dns_zones
+        dns_registration_enabled     = value.dns_registration_enabled
       }
     ]
   ])
