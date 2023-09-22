@@ -32,6 +32,7 @@ variable "network" {
       }))
 
       link_these_private_dns_zones = optional(set(string))
+      dns_registration_enabled = optional(bool)
     }))
   })
 }

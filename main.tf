@@ -72,6 +72,7 @@ module "network" {
 
     # private DNS zone links
     link_these_private_dns_zones = each.value.link_these_private_dns_zones
+    dns_registration_enabled     = each.value.dns_registration_enabled
   }
 
   # peering
