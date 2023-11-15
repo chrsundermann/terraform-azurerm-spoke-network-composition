@@ -81,15 +81,19 @@ data "azurerm_virtual_network" "hub-network" {
 resource "azurerm_virtual_network_peering" "spoke_to_hub" {
   count = var.vnet_peering_spoke_to_hub.peer_spoke_to_hub ? 1 : 0
 
-  name                      = "vpeer-${azurerm_virtual_network.this.name}-to-${element(split("/", "${var.hub_details.hub_vnet_id}"), 7)}"
+  name                      = "vpeer-${azurerm_virtual_network.this.name}-to-${data.azurerm_virtual_network.hub-network[0].name}"
   virtual_network_name      = azurerm_virtual_network.this.name
-  remote_virtual_network_id = var.hub_details.hub_vnet_id
+  remote_virtual_network_id = data.azurerm_virtual_network.hub-network[0].id
   resource_group_name       = var.resource_group_name
 
   allow_virtual_network_access = var.vnet_peering_spoke_to_hub.allow_virtual_network_access
   allow_forwarded_traffic      = var.vnet_peering_spoke_to_hub.allow_forwarded_traffic
   allow_gateway_transit        = var.vnet_peering_spoke_to_hub.allow_gateway_transit
   use_remote_gateways          = var.vnet_peering_spoke_to_hub.use_remote_gateways
+
+   triggers = {
+    remote_address_space = join(",", data.azurerm_virtual_network.hub-network[0].address_space)
+  }
 
   depends_on = [
     azurerm_virtual_network.this,
@@ -113,9 +117,14 @@ resource "azurerm_virtual_network_peering" "hub_to_spoke" {
   allow_gateway_transit        = var.vnet_peering_hub_to_spoke.allow_gateway_transit
   use_remote_gateways          = var.vnet_peering_hub_to_spoke.use_remote_gateways
 
+  triggers = {
+    remote_address_space = join(",", azurerm_virtual_network.this.address_space)
+  }
+
   depends_on = [
     azurerm_virtual_network.this,
-    azurerm_subnet.this
+    azurerm_subnet.this,
+    data.azurerm_virtual_network.hub-network
   ]
 }
 
