@@ -13,6 +13,7 @@ variable "subscription_id_hub" {
 variable "application_details" {
   description = "Basic infos about the application for which the network components are deployed."
   type = object({
+    resource_group_name = optional(string)
     name        = string
     environment = string
     location    = string
