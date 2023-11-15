@@ -20,16 +20,27 @@ variable "application_details" {
 }
 
 variable "hub_details" {
-  description = "Infos about the hub vnet."
+  description = "Infos about the hub."
   type = object({
-    hub_vnet_id = string
+    hub_vnet_name                = string
+    hub_vnet_resource_group_name = string
+    hub_dns_resource_group_name  = string
   })
 }
 
-variable "vnet_peering_to_hub" {
-  description = "Peering options."
+variable "vnet_peering_spoke_to_hub" {
   type = object({
-    peer_vnets_to_hub            = bool
+    peer_spoke_to_hub            = bool
+    allow_virtual_network_access = bool
+    allow_forwarded_traffic      = bool
+    allow_gateway_transit        = bool
+    use_remote_gateways          = bool
+  })
+}
+
+variable "vnet_peering_hub_to_spoke" {
+  type = object({
+    peer_hub_to_spoke            = bool
     allow_virtual_network_access = bool
     allow_forwarded_traffic      = bool
     allow_gateway_transit        = bool

@@ -14,7 +14,8 @@ network:
     flow_timeout_in_minutes: # (Optional) The flow timeout in minutes for the Virtual Network, which is used to enable connection tracking for intra-VM flows. Possible values are between 4 and 30 minutes.
     link_these_private_dns_zones:
       - e.g. myzone1.com
-      - e.g. myzone2.com 
+      - e.g. myzone2.com
+    dns_registration_enabled: # (Optional) Is auto-registration of virtual machine records in the virtual network in the Private DNS zone enabled? Defaults to false.
     subnets:
       mysubnetname: # (Required) The name of the subnet. Changing this forces a new resource to be created.
         address_prefixes: # (Required) The address prefixes to use for the subnet.

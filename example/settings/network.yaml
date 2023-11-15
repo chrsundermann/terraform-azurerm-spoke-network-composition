@@ -12,7 +12,8 @@ network:
     # edge_zone: "" # (Optional) Specifies the Edge Zone within the Azure Region where this Virtual Network should exist. Changing this forces a new Virtual Network to be created.
     flow_timeout_in_minutes: 30 # (Optional) The flow timeout in minutes for the Virtual Network, which is used to enable connection tracking for intra-VM flows. Possible values are between 4 and 30 minutes.
     link_these_private_dns_zones:
-      - contoso.com
+      - example.com
+    dns_registration_enabled: true
     subnets:
       subnet11: # (Required) The name of the subnet. Changing this forces a new resource to be created.
         address_prefixes: # (Required) The address prefixes to use for the subnet.

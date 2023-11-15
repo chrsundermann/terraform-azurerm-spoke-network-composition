@@ -7,7 +7,8 @@ locals {
 }
 
 module "network-composition" {
-  source = "git::https://github.com/rigydi/terraform-azurerm-network-composition.git?ref=main"
+  #source = "git::https://github.com/rigydi/terraform-azurerm-network-composition.git?ref=main"
+  source = "../"
 
   providers = {
     azurerm     = azurerm
@@ -26,8 +27,9 @@ module "network-composition" {
   network_security_groups = yamldecode(file("${path.root}/settings/network_security_groups.yaml"))
 
   # vnet peering to hub vnet
-  hub_details         = var.hub_details
-  vnet_peering_to_hub = var.vnet_peering_to_hub
+  hub_details               = var.hub_details
+  vnet_peering_spoke_to_hub = var.vnet_peering_spoke_to_hub
+  vnet_peering_hub_to_spoke = var.vnet_peering_hub_to_spoke
 
   # details about the application/solution
   application_details = var.application_details

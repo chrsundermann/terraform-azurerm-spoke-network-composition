@@ -26,6 +26,7 @@ locals {
 
         # private DNS zone links
         link_these_private_dns_zones = value.link_these_private_dns_zones
+        dns_registration_enabled     = value.dns_registration_enabled
       }
     ]
   ])
@@ -72,11 +73,13 @@ module "network" {
 
     # private DNS zone links
     link_these_private_dns_zones = each.value.link_these_private_dns_zones
+    dns_registration_enabled     = each.value.dns_registration_enabled
   }
 
   # peering
-  hub_details         = var.hub_details
-  vnet_peering_to_hub = var.vnet_peering_to_hub
+  hub_details               = var.hub_details
+  vnet_peering_hub_to_spoke = var.vnet_peering_hub_to_spoke
+  vnet_peering_spoke_to_hub = var.vnet_peering_spoke_to_hub
 }
 
 
