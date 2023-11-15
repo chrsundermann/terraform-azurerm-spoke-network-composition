@@ -34,7 +34,7 @@ locals {
 
 # Resource documentation: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group
 resource "azurerm_resource_group" "this" {
-  name     = "rg-network-${var.application_details.name}-${var.application_details.environment}"
+  name     = var.application_details.resource_group_name == null ? "rg-network-${var.application_details.name}-${var.application_details.environment}" : var.application_details.resource_group_name
   location = var.application_details.location
   tags     = try(var.tags, null)
 
@@ -163,7 +163,7 @@ locals {
         route_table_config.routes == null ? [] : [
           for route, route_config in route_table_config.routes : {
             key                    = "${route}.${route_table}"
-            name                   = "route-${route}-${var.application_details.name}-${var.application_details.environment}"
+            name                   = "udr-${route}"
             route_table_name       = "rt-${route_table}-${var.application_details.name}-${var.application_details.environment}"
             address_prefix         = route_config.address_prefix
             next_hop_type          = route_config.next_hop_type

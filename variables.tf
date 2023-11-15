@@ -32,7 +32,7 @@ variable "network" {
       }))
 
       link_these_private_dns_zones = optional(set(string))
-      dns_registration_enabled = optional(bool)
+      dns_registration_enabled     = optional(bool)
     }))
   })
 }
@@ -121,9 +121,10 @@ variable "network_security_groups" {
 variable "application_details" {
   description = "Basic infos about the application for which the network components are deployed."
   type = object({
-    name        = string
-    environment = string
-    location    = string
+    resource_group_name = optional(string)
+    name                = string
+    environment         = string
+    location            = string
   })
 }
 
